@@ -1,28 +1,41 @@
 import React, { useState, useEffect } from "react";
 import socketIOClient from "socket.io-client";
 import User from './components/user';
+import Game from './components/game';
 //import logo from './logo.svg';
 
-const ENDPOINT = "http://127.0.0.1:9000";
+const ENDPOINT = "http://localhost:9000";
 
 function App() {
 	const [response, setResponse] = useState("");
 	const [userInput, setUserInput] = useState("");
-	const [userName, setUserName] = useState("");
-
+    const [userName, setUserName] = useState("");
+    const [gameRoom, setGameRoom] = useState("");
+    const [opponent, setOpponent] = useState('');
+    
 	//connect to socket and handle communication
-  	useEffect(() => {
-		if(!userName) return;
+    useEffect(() => {
+        if(!userName) return;
     	const socket = socketIOClient(ENDPOINT, {
-			query: {
-				username: userName
-			}
-		});
-    	socket.on("test-socket", data => {
-     	 	setResponse(data);
-    	});
-  	}, [userName]);
-	
+            query: {
+                userName: userName
+            }
+        })
+        socket.on("connected", data => {
+            setResponse(data);
+        });
+        //game room
+        socket.on('joined game room', data => {
+            setGameRoom(data);
+            socket.emit('join', { userName, room: data })
+        })
+
+        socket.on('player joined', data => {
+            console.log('player name', data)
+            setOpponent(data)
+        })
+    }, [userName]);
+    
 	const handleUsernameSubmit = (e) => {
 		e.preventDefault();
 		setUserName(userInput)
@@ -37,7 +50,7 @@ function App() {
 		<div className="App">
 			<div className="container">
 				{userName 
-					? <h1>{response}</h1>	
+					? <Game userName={userName} opponent={opponent}/>
 					: <User handleUsernameSubmit={handleUsernameSubmit} handleFormInput={handleFormInput} userInput={userInput} />
 				}
 			</div>
