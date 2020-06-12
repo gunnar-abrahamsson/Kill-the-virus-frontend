@@ -12,6 +12,7 @@ function App() {
     const [userName, setUserName] = useState("");
     const [gameRoom, setGameRoom] = useState("");
     const [opponent, setOpponent] = useState('');
+    const [virusCord, setVirusCord] = useState('');
     
 	//connect to socket and handle communication
     useEffect(() => {
@@ -31,8 +32,11 @@ function App() {
         })
 
         socket.on('player joined', data => {
-            console.log('player name', data)
             setOpponent(data)
+        })
+
+        socket.on('spawn virus', virus => {
+            setVirusCord(virus)
         })
     }, [userName]);
     
