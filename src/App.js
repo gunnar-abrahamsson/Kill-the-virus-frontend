@@ -1,33 +1,37 @@
 import React, { useState, useEffect } from "react";
-import socketIOClient from "socket.io-client";
+import useSocket from 'use-socket.io-client'
 import User from './components/user';
 import Game from './components/game';
+import Virus from "./components/virus";
 //import logo from './logo.svg';
 
 const ENDPOINT = "http://localhost:9000";
 
 function App() {
-	const [response, setResponse] = useState("");
 	const [userInput, setUserInput] = useState("");
     const [userName, setUserName] = useState("");
     const [gameRoom, setGameRoom] = useState("");
     const [opponent, setOpponent] = useState('');
-    const [virusCord, setVirusCord] = useState('');
+    const [virusInfo, setVirusInfo] = useState('');
+    const [virus, setVirus] = useState('');
+    const [reactionTime, setReactionTime] = useState('');
+    const [opponentReactionTime, setOpponentReactionTime] = useState('');
+    const [socket] = useSocket(ENDPOINT, {
+        autoConnect: false,
+    })
+    socket.connect();
     
-	//connect to socket and handle communication
+	//connect to socket when user has set userName
     useEffect(() => {
         if(!userName) return;
-    	const socket = socketIOClient(ENDPOINT, {
-            query: {
-                userName: userName
-            }
-        })
-        socket.on("connected", data => {
-            setResponse(data);
-        });
+        socket.emit('submit userName', userName)
+    }, [userName, socket]);
+
+    useEffect(() => {
         //game room
         socket.on('joined game room', data => {
             setGameRoom(data);
+            if(!userName) return;
             socket.emit('join', { userName, room: data })
         })
 
@@ -36,10 +40,34 @@ function App() {
         })
 
         socket.on('spawn virus', virus => {
-            setVirusCord(virus)
+            setVirusInfo(virus)
         })
-    }, [userName]);
+
+        socket.on('opponents reactionTime', opponentReaction => {
+            setOpponentReactionTime(opponentReaction)
+        })
+
+    }, [userName, reactionTime, socket]);
+
+    //spawn virus when server sends new virus update
+    useEffect(() => {
+        if(!virusInfo) return;
+        spawnVirus(virusInfo)
+    }, [virusInfo]);
+
+    const handleVirusClick = () => {
+        console.log('MMMM click that virus!')
+        const reactionTime = Date.now() - virus.spawnTime;
+        socket.emit('submit reactionTime', reactionTime)
+        setVirus('');
+    }
     
+    const spawnVirus = (info) => {
+        const { delay, x, y} = info
+        setTimeout(() => {
+            setVirus({x, y, spawnTime: Date.now()})
+        }, delay * 1000)
+    }
 	const handleUsernameSubmit = (e) => {
 		e.preventDefault();
 		setUserName(userInput)
@@ -54,8 +82,12 @@ function App() {
 		<div className="App">
 			<div className="container">
 				{userName 
-					? <Game userName={userName} opponent={opponent}/>
-					: <User handleUsernameSubmit={handleUsernameSubmit} handleFormInput={handleFormInput} userInput={userInput} />
+					? <Game userName={userName} opponent={opponent} handleVirusClick={handleVirusClick} virus={virus} />
+					: <User 
+                        handleUsernameSubmit={handleUsernameSubmit} 
+                        handleFormInput={handleFormInput} 
+                        userInput={userInput} 
+                        />
 				}
 			</div>
 		</div>

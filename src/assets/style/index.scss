@@ -1,1 +1,11 @@
 @import '~bootstrap/scss/bootstrap.scss';
+
+#gameArea {
+    width: 800px;
+    height: 600px;
+    background-color: powderblue;
+}
+
+#virus {
+    position: relative;
+}
