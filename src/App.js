@@ -16,6 +16,12 @@ function App() {
     const [virus, setVirus] = useState('');
     const [reactionTime, setReactionTime] = useState('');
     const [opponentReactionTime, setOpponentReactionTime] = useState('');
+    const [gameData, setGameData] = useState({
+        round: 0,
+        player: 0,
+        opponent: 0
+    })
+    const [matchResoult, setMatchResoult] = useState(null);
     const [socket] = useSocket(ENDPOINT, {
         autoConnect: false,
     })
@@ -47,6 +53,13 @@ function App() {
             setOpponentReactionTime(opponentReaction)
         })
 
+        socket.on('update score', (gameData) => {
+            setGameData(gameData);
+        })
+
+        socket.on('game over', (matchData) => {
+            setMatchResoult(matchData);
+        })
     }, [userName, reactionTime, socket]);
 
     //spawn virus when server sends new virus update
@@ -58,7 +71,8 @@ function App() {
     const handleVirusClick = () => {
         console.log('MMMM click that virus!')
         const reactionTime = Date.now() - virus.spawnTime;
-        socket.emit('submit reactionTime', reactionTime)
+        socket.emit('submit reactionTime', reactionTime);
+        setReactionTime(reactionTime);
         setVirus('');
     }
     
@@ -78,11 +92,22 @@ function App() {
 		setUserInput(e.target.value)
 	}
 
+    const handlePlayAgain = () => {
+        socket.emit('play again')
+    }
   	return (
 		<div className="App">
 			<div className="container">
 				{userName 
-					? <Game userName={userName} opponent={opponent} handleVirusClick={handleVirusClick} virus={virus} />
+					? <Game 
+                        userName={userName} 
+                        opponent={opponent} 
+                        handleVirusClick={handleVirusClick} 
+                        virus={virus} 
+                        reactionTime={reactionTime}
+                        opponentReactionTime={opponentReactionTime}    
+                        gameData={gameData}
+                        />
 					: <User 
                         handleUsernameSubmit={handleUsernameSubmit} 
                         handleFormInput={handleFormInput} 
