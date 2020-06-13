@@ -77,9 +77,9 @@ function App() {
     }
     
     const spawnVirus = (info) => {
-        const { delay, x, y} = info
+        const { delay, x, y, size} = info
         setTimeout(() => {
-            setVirus({x, y, spawnTime: Date.now()})
+            setVirus({x, y, spawnTime: Date.now(), size})
         }, delay * 1000)
     }
 	const handleUsernameSubmit = (e) => {
