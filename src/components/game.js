@@ -2,6 +2,7 @@ import React from 'react'
 import GameArea from './gameArea'
 import PostGame from './postGame'
 import moment from 'moment';
+import Waiting from './waiting'
 
 const Game = (props) => {
 
@@ -11,13 +12,17 @@ const Game = (props) => {
     const opponentReactionTime = props.opponentReactionTime ?
             moment(props.opponentReactionTime).format('ss:SS')
         : '';
-    const { player, opponent, round} = props.gameData
+    const gameData = props.gameData
 
 	return (
 		<div>
-            <h1>
-                <span className="reactionTime">{playerReactionTime}</span> {props.userName} <span className="score">{player}</span> vs <span className="score">{opponent}</span> {props.opponent} <span className="reactionTime">{opponentReactionTime}</span>
-            </h1>
+            {props.opponent ?
+                <h1>
+                    <span className="reactionTime">{playerReactionTime}</span> {props.userName} <span className="score">{gameData.player}</span> vs <span className="score">{gameData.opponent}</span> {props.opponent} <span className="reactionTime">{opponentReactionTime}</span>
+                </h1>    
+            :
+                <Waiting />
+            }
             {props.matchResoult ?
                 <PostGame matchResoult={props.matchResoult} handlePlayAgain={props.handlePlayAgain} />
             :
