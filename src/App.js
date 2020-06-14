@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import './assets/style/index.scss';
 import useSocket from 'use-socket.io-client'
 import User from './components/user';
 import Game from './components/game';
@@ -108,6 +109,7 @@ function App() {
   	return (
 		<div className="App">
 			<div className="container">
+                <h1>Kill the virus!</h1>
 				{userName 
 					? <Game 
                         userName={userName} 

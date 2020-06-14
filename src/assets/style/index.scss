@@ -1,5 +1,33 @@
+/* Color Theme Swatches in Hex */
+$pink-hex: #EE0CF2;
+$purple-hex: #8A118C;
+$black-hex: #08080D;
+$blue-hex: #05F2AF;
+$green-hex: #0DA67B;
+
+/* Color Theme Swatches in RGBA */
+$pink-rgba: rgba(238,12,242, 1);
+$purple-rgba: rgba(138,17,140, 1);
+$black-rgba: rgba(8,8,13, 1);
+$blue-rgba: rgba(5,242,175, 1);
+$green-rgba: rgba(13,166,123, 1);
+
+/* Color Theme Swatches in HSLA */
+$pink-hsla: hsla(298, 90, 49, 1);
+$purple-hsla: hsla(299, 78, 30, 1);
+$black-hsla: hsla(240, 23, 4, 1);
+$blue-hsla: hsla(163, 95, 48, 1);
+$green-hsla: hsla(163, 85, 35, 1);
 @import '~bootstrap/scss/bootstrap.scss';
 
+body {
+    background-color: $black-hex;
+}
+
+h1 {
+    color: $blue-hex;
+    font-weight: 2rem;
+}
 #gameArea {
     width: 800px;
     height: 600px;
