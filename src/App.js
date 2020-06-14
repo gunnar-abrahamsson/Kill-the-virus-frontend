@@ -10,16 +10,15 @@ const ENDPOINT = "http://localhost:9000";
 function App() {
 	const [userInput, setUserInput] = useState("");
     const [userName, setUserName] = useState("");
-    const [gameRoom, setGameRoom] = useState("");
     const [opponent, setOpponent] = useState('');
     const [virusInfo, setVirusInfo] = useState('');
     const [virus, setVirus] = useState('');
     const [reactionTime, setReactionTime] = useState('');
     const [opponentReactionTime, setOpponentReactionTime] = useState('');
     const [gameData, setGameData] = useState({
-        round: 0,
         player: 0,
-        opponent: 0
+        opponent: 0,
+        round: 0,
     })
     const [matchResoult, setMatchResoult] = useState(null);
     const [socket] = useSocket(ENDPOINT, {
@@ -28,16 +27,11 @@ function App() {
     socket.connect();
     
 	//connect to socket when user has set userName
-    useEffect(() => {
-        if(!userName) return;
-        socket.emit('submit userName', userName)
-    }, [userName, socket]);
 
     useEffect(() => {
         //game room
+        if(!userName) return;
         socket.on('joined game room', data => {
-            setGameRoom(data);
-            if(!userName) return;
             socket.emit('join', { userName, room: data })
         })
 
@@ -53,14 +47,18 @@ function App() {
             setOpponentReactionTime(opponentReaction)
         })
 
-        socket.on('update score', (gameData) => {
-            setGameData(gameData);
+        socket.on('update score', (payload) => {
+            setGameData({
+                player: payload.player,
+                opponent: payload.opponent,
+                round: payload.round,
+            });
         })
 
         socket.on('game over', (matchData) => {
             setMatchResoult(matchData);
         })
-    }, [userName, reactionTime, socket]);
+    }, [userName, socket]);
 
     //spawn virus when server sends new virus update
     useEffect(() => {
@@ -85,7 +83,8 @@ function App() {
 	const handleUsernameSubmit = (e) => {
 		e.preventDefault();
 		setUserName(userInput)
-		setUserInput('');
+        socket.emit('submit userName', userInput)
+        setUserInput('');
 	}
 
 	const handleFormInput = (e) => {
@@ -93,6 +92,17 @@ function App() {
 	}
 
     const handlePlayAgain = () => {
+        setOpponent('');
+        setVirus('');
+        setVirusInfo('');
+        setOpponentReactionTime('');
+        setGameData({
+            round: 0,
+            player: 0,
+            opponent: 0
+        });
+        setReactionTime('');
+        setMatchResoult(null);
         socket.emit('play again')
     }
   	return (
@@ -107,6 +117,8 @@ function App() {
                         reactionTime={reactionTime}
                         opponentReactionTime={opponentReactionTime}    
                         gameData={gameData}
+                        matchResoult={matchResoult}
+                        handlePlayAgain={handlePlayAgain}
                         />
 					: <User 
                         handleUsernameSubmit={handleUsernameSubmit} 

@@ -1,5 +1,6 @@
 import React from 'react'
 import GameArea from './gameArea'
+import PostGame from './postGame'
 import moment from 'moment';
 
 const Game = (props) => {
@@ -17,12 +18,16 @@ const Game = (props) => {
             <h1>
                 <span className="reactionTime">{playerReactionTime}</span> {props.userName} <span className="score">{player}</span> vs <span className="score">{opponent}</span> {props.opponent} <span className="reactionTime">{opponentReactionTime}</span>
             </h1>
-            <GameArea 
-                handleVirusClick={props.handleVirusClick} 
-                virus={props.virus} 
-                opponentReactionTime={props.opponentReactionTime} 
-                reactionTime={props.reactionTime}
+            {props.matchResoult ?
+                <PostGame matchResoult={props.matchResoult} handlePlayAgain={props.handlePlayAgain} />
+            :
+                <GameArea 
+                    handleVirusClick={props.handleVirusClick} 
+                    virus={props.virus} 
+                    opponentReactionTime={props.opponentReactionTime} 
+                    reactionTime={props.reactionTime}
                 />
+            }
         </div>
 	)
 }
