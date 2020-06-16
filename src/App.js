@@ -4,6 +4,7 @@ import useSocket from 'use-socket.io-client'
 import User from './components/user';
 import Game from './components/game';
 import Virus from "./components/virus";
+import Pregame from "./components/preAndPostGame/pregame";
 //import logo from './logo.svg';
 
 const ENDPOINT = "http://localhost:9000";
@@ -108,8 +109,6 @@ function App() {
     }
   	return (
 		<div className="App">
-			<div className="container">
-                <h1>Kill the virus!</h1>
 				{userName 
 					? <Game 
                         userName={userName} 
@@ -122,13 +121,12 @@ function App() {
                         matchResoult={matchResoult}
                         handlePlayAgain={handlePlayAgain}
                         />
-					: <User 
+					: <Pregame 
                         handleUsernameSubmit={handleUsernameSubmit} 
                         handleFormInput={handleFormInput} 
                         userInput={userInput} 
                         />
 				}
-			</div>
 		</div>
   	);
 }
