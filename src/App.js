@@ -4,7 +4,7 @@ import useSocket from 'use-socket.io-client'
 import Game from './components/game';
 import Pregame from "./components/preAndPostGame/pregame";
 
-const ENDPOINT = "http://localhost:9000";
+const ENDPOINT = "";
 
 function App() {
 	const [userInput, setUserInput] = useState("");
