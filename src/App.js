@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from "react";
 import './assets/style/index.scss';
 import useSocket from 'use-socket.io-client'
-import User from './components/user';
 import Game from './components/game';
-import Virus from "./components/virus";
 import Pregame from "./components/preAndPostGame/pregame";
-//import logo from './logo.svg';
 
 const ENDPOINT = "http://localhost:9000";
 
