@@ -115,6 +115,30 @@ h1 {
             width: 15px;
         }
     }
+
+    .postGame {
+        position: absolute;
+        left: 50%;
+        top: 30%;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        color: $blue-hex;
+
+        h2 {
+            margin-bottom: 1rem;
+            font-size: 3rem;
+            font-weight: 600;
+        }
+
+        .btn {
+            padding: 0.5rem 2rem;
+            background-color: $blue-hex;
+            color: $black-hex;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+    }
 }
 
 //Grid for searching

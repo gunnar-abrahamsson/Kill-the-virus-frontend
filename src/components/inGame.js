@@ -2,6 +2,7 @@ import React from 'react'
 import GameStats from './gameStats/gameStats'
 import Title from './gameTitle/title';
 import GameBoard from './gameBoard/gameBoard';
+import PostGame from './preAndPostGame/postGame'
 
 const InGame = (props) => {
 	return (
@@ -18,6 +19,10 @@ const InGame = (props) => {
                 virus={props.virus} 
                 handleVirusClick={props.handleVirusClick}   
             />
+            {props.matchResoult ?
+                <PostGame matchResoult={props.matchResoult} handlePlayAgain={props.handlePlayAgain} />
+            : ''
+            }
         </div>
 	)
 }
