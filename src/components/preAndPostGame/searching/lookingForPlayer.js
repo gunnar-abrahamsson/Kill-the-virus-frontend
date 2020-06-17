@@ -5,11 +5,11 @@ import GameBoard from '../../gameBoard/gameBoard'
 
 const LookingForOpponent = (props) => {
 	return (
-        <div className="lookingForOpponent">
-            <Title />
-            <Waiting />
-            <GameBoard />
-        </div>
+		<div className="lookingForOpponent">
+			<Title />
+			<Waiting />
+			<GameBoard />
+		</div>
 	)
 }
 

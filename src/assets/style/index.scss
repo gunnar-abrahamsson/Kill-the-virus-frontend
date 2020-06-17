@@ -22,236 +22,236 @@ $green-hsla: hsla(163, 85, 35, 1);
 @import '~bootstrap/scss/bootstrap.scss';
 
 body {
-    background-color: $black-hex;
+	background-color: $black-hex;
 }
 
 h1 {
-    color: $blue-hex;
-    font-weight: 2rem;
+	color: $blue-hex;
+	font-weight: 2rem;
 }
 
 .caps {
-    text-transform: uppercase;
+	text-transform: uppercase;
 }
 
 #gameArea {
-    width: 800px;
-    height: 600px;
-    background-color: powderblue;
+	width: 800px;
+	height: 600px;
+	background-color: powderblue;
 }
 
 #virus {
-    position: relative;
+	position: relative;
 }
 
 #gameBoard {
-    grid-area: game;
-    width: 100%;
-    height: 100%;
-    background-image: url(../svg/World_Map_pink.svg);
+	grid-area: game;
+	width: 100%;
+	height: 100%;
+	background-image: url(../svg/World_Map_pink.svg);
 }
 
 //Grid for ingame
 #inGame {
-    display: grid;
-    grid-template-columns: 1fr 550px 550px 1fr;
-    grid-template-rows: auto 300px 300px;
-    grid-template-areas: 
-        "header header header header"
-        "title game game ."
-        "title game game .";
+	display: grid;
+	grid-template-columns: 1fr 550px 550px 1fr;
+	grid-template-rows: auto 300px 300px;
+	grid-template-areas: 
+		"header header header header"
+		"title game game ."
+		"title game game .";
 
-    h1 {
-        writing-mode: vertical-rl;
-        transform:rotate(180deg);
-        text-transform: uppercase;
-        grid-area: title;
-    }
+	h1 {
+		writing-mode: vertical-rl;
+		transform:rotate(180deg);
+		text-transform: uppercase;
+		grid-area: title;
+	}
 
-    h2 {
-        display: inline-block;
-    }
-    #gameStats {
-        grid-area: header;
-        display: grid;
-        grid-template-columns: 1fr 2fr 1fr 2fr 1fr;
-        grid-template-areas: 
-            ". player vs opponent .";
-        color: $blue-hex;
-        gap: 1rem;
-        
-        #playerStats {
-            font-size: 2rem;
-            grid-area: player;
-            justify-self: end;
+	h2 {
+		display: inline-block;
+	}
+	#gameStats {
+		grid-area: header;
+		display: grid;
+		grid-template-columns: 1fr 2fr 1fr 2fr 1fr;
+		grid-template-areas: 
+			". player vs opponent .";
+		color: $blue-hex;
+		gap: 1rem;
+		
+		#playerStats {
+			font-size: 2rem;
+			grid-area: player;
+			justify-self: end;
 
-            .reactionTime {
-                margin-right: 1.5rem;
-            }
-        }
-        
-        #opponentStats {
-            font-size: 2rem;
-            grid-area: opponent;
-            
-            .reactionTime {
-                margin-left: 1.5rem;
-            }
-        }
-        
-        .vs {
-            font-size: 2rem;
-            grid-area: vs;
-            justify-self: center;
-        }
+			.reactionTime {
+				margin-right: 1.5rem;
+			}
+		}
+		
+		#opponentStats {
+			font-size: 2rem;
+			grid-area: opponent;
+			
+			.reactionTime {
+				margin-left: 1.5rem;
+			}
+		}
+		
+		.vs {
+			font-size: 2rem;
+			grid-area: vs;
+			justify-self: center;
+		}
 
-    }
+	}
 
-    #score {
-        display: flex;
-        height: 15px;
-        img {
-            height: 15px;
-            width: 15px;
-        }
-    }
+	#score {
+		display: flex;
+		height: 15px;
+		img {
+			height: 15px;
+			width: 15px;
+		}
+	}
 
-    .postGame {
-        position: absolute;
-        left: 50%;
-        top: 30%;
-        display: flex;
-        flex-direction: column;
-        text-align: center;
-        color: $blue-hex;
-        margin-left: -100px;
-        h2 {
-            margin-bottom: 1rem;
-            font-size: 3rem;
-            font-weight: 600;
-        }
+	.postGame {
+		position: absolute;
+		left: 50%;
+		top: 30%;
+		display: flex;
+		flex-direction: column;
+		text-align: center;
+		color: $blue-hex;
+		margin-left: -100px;
+		h2 {
+			margin-bottom: 1rem;
+			font-size: 3rem;
+			font-weight: 600;
+		}
 
-        .btn {
-            padding: 0.5rem 2rem;
-            background-color: $blue-hex;
-            color: $black-hex;
-            font-size: 1.5rem;
-            font-weight: 700;
-        }
-    }
+		.btn {
+			padding: 0.5rem 2rem;
+			background-color: $blue-hex;
+			color: $black-hex;
+			font-size: 1.5rem;
+			font-weight: 700;
+		}
+	}
 }
 
 //Grid for searching
 .lookingForOpponent {
-    display: grid;
-    grid-template-columns: 1fr 550px 550px 1fr;
-    grid-template-rows: auto 300px 300px;
-    grid-template-areas: 
-        "header header header header"
-        "title game game ."
-        "title game game .";
+	display: grid;
+	grid-template-columns: 1fr 550px 550px 1fr;
+	grid-template-rows: auto 300px 300px;
+	grid-template-areas: 
+		"header header header header"
+		"title game game ."
+		"title game game .";
 
-    h1 {
-        writing-mode: vertical-rl;
-        transform:rotate(180deg);
-        text-transform: uppercase;
-        grid-area: title;
-    }
+	h1 {
+		writing-mode: vertical-rl;
+		transform:rotate(180deg);
+		text-transform: uppercase;
+		grid-area: title;
+	}
 
-    h2 {
-        color: $blue-hex;
-        font-size: 2rem;
-        margin-top: 1rem;
-    }
-    
-    .waiting_container {
-        grid-area: header;
-        display: flex;
-        flex-grow: 1;
-        flex-direction: column;
-        .virus_icons {
-            display: flex;
-            justify-content: center;
-            width: 300px;
-            height: 30px;
-            background-repeat: no-repeat;
-            background-image: url(/static/media/loadingbar.c6f617ac.svg);
-            align-self: center;
-            margin-top: 1rem;
-            animation: loadingbar 5s ease infinite;
-        }
-    }
+	h2 {
+		color: $blue-hex;
+		font-size: 2rem;
+		margin-top: 1rem;
+	}
+	
+	.waiting_container {
+		grid-area: header;
+		display: flex;
+		flex-grow: 1;
+		flex-direction: column;
+		.virus_icons {
+			display: flex;
+			justify-content: center;
+			width: 300px;
+			height: 30px;
+			background-repeat: no-repeat;
+			background-image: url(/static/media/loadingbar.c6f617ac.svg);
+			align-self: center;
+			margin-top: 1rem;
+			animation: loadingbar 5s ease infinite;
+		}
+	}
 }
 
 //grid for pre game
 .pregame {
-    display: grid;
-    height: 100vh;
-    grid-template-columns: 1fr auto 1fr;
-    grid-template-rows: auto;
-    grid-template-areas: 
-        ". . ."
-        ". content ."
-        ". . ."
-        ". . .";
-    
-    .content {
-        grid-area: content;
-    }
-    h1 {
-        margin-bottom: 2rem;
-        font-size: 4rem;
-    };
+	display: grid;
+	height: 100vh;
+	grid-template-columns: 1fr auto 1fr;
+	grid-template-rows: auto;
+	grid-template-areas: 
+		". . ."
+		". content ."
+		". . ."
+		". . .";
+	
+	.content {
+		grid-area: content;
+	}
+	h1 {
+		margin-bottom: 2rem;
+		font-size: 4rem;
+	};
 }
 
 .username_input {
-    background-color: $black-hex;
-    border: none;
-    color: $blue-hex;
-    font-size: 2rem;
-    box-shadow: none !important;
-    
-    &:focus {
-        background-color: $black-hex;
-        border: none;
-        color: $blue-hex;
-    }
-    
-    &::placeholder{
-        color: $blue-hex;
-    }
+	background-color: $black-hex;
+	border: none;
+	color: $blue-hex;
+	font-size: 2rem;
+	box-shadow: none !important;
+	
+	&:focus {
+		background-color: $black-hex;
+		border: none;
+		color: $blue-hex;
+	}
+	
+	&::placeholder{
+		color: $blue-hex;
+	}
 }
 
 //Grid for postgame
 .postgame {
-    display: grid;
-    grid-template-columns: 1fr 550px 550px 1fr;
-    grid-template-rows: auto 300px 300px;
-    grid-template-areas: 
-        "header header header header"
-        "title playagain playagain ."
-        "title playagain playagain .";
+	display: grid;
+	grid-template-columns: 1fr 550px 550px 1fr;
+	grid-template-rows: auto 300px 300px;
+	grid-template-areas: 
+		"header header header header"
+		"title playagain playagain ."
+		"title playagain playagain .";
 }
 
 @keyframes loadingbar {
-    // 0% {width:33%}
-    // 40% {width:60%}
-    // 60% {width:60%;}
-    // 100% {width:33%;}
+	// 0% {width:33%}
+	// 40% {width:60%}
+	// 60% {width:60%;}
+	// 100% {width:33%;}
 
-    0% {
-        opacity: 0;
-    }
-    
-    45% {
-        opacity: 1;
-    }
-    
-    55% {
-        opacity: 1;
-    }
+	0% {
+		opacity: 0;
+	}
+	
+	45% {
+		opacity: 1;
+	}
+	
+	55% {
+		opacity: 1;
+	}
 
-    100% {
-        opacity: 0;
-    }
+	100% {
+		opacity: 0;
+	}
 }

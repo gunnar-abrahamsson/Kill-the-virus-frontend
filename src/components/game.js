@@ -6,22 +6,22 @@ const Game = (props) => {
 
 	return (
 		<div>
-            {props.opponent ?
-                <InGame 
-                    userName={props.userName}
-                    opponent={props.opponent}
-                    gameData={props.gameData} 
-                    opponentReactionTime={props.opponentReactionTime}
-                    handleVirusClick={props.handleVirusClick}
-                    reactionTime={props.reactionTime}
-                    virus={props.virus}
-                    matchResoult={props.matchResoult} 
-                    handlePlayAgain={props.handlePlayAgain}
-                /> 
-            :
-                <LookingForPlayer />
-            }
-        </div>
+			{props.opponent ?
+				<InGame 
+					userName={props.userName}
+					opponent={props.opponent}
+					gameData={props.gameData} 
+					opponentReactionTime={props.opponentReactionTime}
+					handleVirusClick={props.handleVirusClick}
+					reactionTime={props.reactionTime}
+					virus={props.virus}
+					matchResoult={props.matchResoult} 
+					handlePlayAgain={props.handlePlayAgain}
+				/> 
+			:
+				<LookingForPlayer />
+			}
+		</div>
 	)
 }
 
